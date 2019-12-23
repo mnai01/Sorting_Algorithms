@@ -1,6 +1,7 @@
 #include <iostream>
 void swap(int* lhs, int* rhs);
-void bubbleSort(int arr[], int length);
+void BubbleSort(int arr[], int length);
+void SelectionSort(int arr[], int length);
 using namespace std;
 
 int main() {
@@ -15,7 +16,8 @@ int main() {
 
 	cout << endl << endl;
 
-	bubbleSort(testarr, testArrLength);
+	//BubbleSort(testarr, testArrLength);
+	SelectionSort(testarr, testArrLength);
 
 	for (int i = 0; i < 9; i++) {
 		cout << testarr[i] << " ";
@@ -35,7 +37,7 @@ void swap(int* lhs, int* rhs) {
 	*lhs = temp;
 }
 
-void bubbleSort(int arr[], int length) {
+void BubbleSort(int arr[], int length) {
 
 	// Swaps by sending the greatest to the right
 	// Iterates n times of length, this makes sure the nested forloop/if will go through the loop at most 9 times
@@ -85,4 +87,32 @@ void bubbleSort(int arr[], int length) {
 	//		}
 	//	}
 	//}
+}
+
+void SelectionSort(int arr[], int length) {
+	// used to hold the most min value
+	int marker;
+
+	// iterates through each index 
+	for (int i = 0; i < length - 1; i++) {
+		// sets marker to whichever index it is at
+		marker = i;
+		// checks to see if marker is greater then j. this forloop also iterates through the list. This allowed every value to be compared with each other in the array
+		// EX. i = 1
+		// j will compare 2-8 while int i equals 1 (this compares 2-8 with 1 seeing if its less them). Then i increments to 2 and the same thing happens.
+		
+		// j will equal i + 1 because everytime the forloop finishes that means the most left index is sorted with the smallest value.
+		// so we do not want to check that specific index anymore, so instead of making j = 0 (which after the first pass will hold the smallest value)
+		// we do j = i + 1 which is always gonna be 1 value infront of the most left or the most recent smallest value swapped at that time.
+		for (int j = i + 1 ; j < length; j++) {
+			// is marker greater then j
+			if (arr[marker] > arr[j]) {
+				// make marker equal the smaller value J
+				marker = j;
+			}
+			// once j iterates through the whole list, allowing us to compare each member with marker, marker will now
+			// hold the smallest value therefore we swap marker with i which at this point will be at the most left unsorted index
+			swap(&arr[marker], &arr[i]);
+		}
+	}
 }

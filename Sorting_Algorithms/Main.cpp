@@ -2,6 +2,7 @@
 void swap(int* lhs, int* rhs);
 void BubbleSort(int arr[], int length);
 void SelectionSort(int arr[], int length);
+void InsertionSort(int arr[], int length);
 using namespace std;
 
 int main() {
@@ -16,8 +17,9 @@ int main() {
 
 	cout << endl << endl;
 
-	//BubbleSort(testarr, testArrLength);
-	SelectionSort(testarr, testArrLength);
+	// BubbleSort(testarr, testArrLength);
+	// SelectionSort(testarr, testArrLength);
+	InsertionSort(testarr, testArrLength);
 
 	for (int i = 0; i < 9; i++) {
 		cout << testarr[i] << " ";
@@ -114,5 +116,27 @@ void SelectionSort(int arr[], int length) {
 			// hold the smallest value therefore we swap marker with i which at this point will be at the most left unsorted index
 			swap(&arr[marker], &arr[i]);
 		}
+	}
+}
+
+void InsertionSort(int arr[], int length) {
+	int value, currentIndex;
+	// interate through each index of the array
+	for (int i = 1; i < length; i++) {
+		// key is equal to the the value of the specific index we are at
+		value = arr[i];
+		
+		// hole is the index # at which i is at
+		currentIndex = i;
+	
+		// while currentIndex is greater then 0 and arr[currentIndex - 1] (the value before the currentIndex) is greater than value (represents value of currentIndex)
+		while (currentIndex > 0 && arr[currentIndex - 1] > value) {
+			// then current index (which is the the lesser value at this point) set equal to current index -1 (the value before current which is greater)
+			arr[currentIndex] = arr[currentIndex - 1];
+			// set current index back 1 index
+			currentIndex--;
+		}
+		// set current index to value
+		arr[currentIndex] = value;
 	}
 }
